@@ -1,3 +1,6 @@
 print("gajg")
 print("gajgfgsadg")
 print(ajsdhg)
+print("gajg")
+print("gajgfgsadg")
+print(ajsdhg)
