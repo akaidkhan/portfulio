@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static "css/mystyle.css" %}">
+    <title>Musician List</title>
+  </head>
+  <body>
+    <h1>{{ text_1 }}</h1>
+    <a href="/form/">Add New</a>
+    <table border="1">
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Instrument</th>
+      </tr>
+
+      {% for row in musician %}
+
+      <tr>
+        <td> {{ row.first_name }} </td>
+        <td> {{ row.last_name }} </td>
+        <td> {{ row.instrument }} </td>
+      </tr>
+
+      {% endfor %}
+
+    </table>
+  </body>
+</html>

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from home import forms
+from home.models import Musician, Album
 
 
 # Create your views here
@@ -30,8 +31,6 @@ from home import forms
 #
 #
 #     return render(request, 'home/form.html', context=diction)
-
-#
 # def form(request):
 #     new_form = forms.user_form()
 #     diction = {'test_form': new_form, 'heading_1': "This form is created using django library"}
@@ -47,18 +46,41 @@ from home import forms
 #
 #
 #     return render(request, 'home/form.html', context=diction)
+# def form(request):
+#     new_form = forms.user_form()
+#     diction = {'test_form': new_form, 'heading_1': "This form is created using django library"}
 #
+#     if request.method == 'POST':
+#         new_form = forms.user_form(request.POST)
+#         diction.update({'test_form':new_form})
+#         if new_form.is_valid():
+#             diction.update({'field': 'Fields Match!!'})
+#             diction.update({'form_submited':"Yes"})
+#
+#     return render(request, 'home/form.html', context=diction)
+# def form(request):
+#     new_form = forms.MusicianForm()
+#     if request.method == 'POST':
+#         new_form = forms.MusicianForm(request.POST)
+#         if new_form.is_valid():
+#             new_form.save(commit=True)
+#             return index(request)
+#     diction = {'test_form': new_form, 'heading_1':'Add New Musician'}
+#     return render(request, 'home/form.html', context = diction)
+
+
+def index(request):
+    musician_list = Musician.objects.order_by('first_name')
+    diction = {'text_1':'This a list of Musicians', 'musician':musician_list}
+    return render(request, 'home/index.html', context=diction)
 
 
 def form(request):
-    new_form = forms.user_form()
-    diction = {'test_form': new_form, 'heading_1': "This form is created using django library"}
-
+    new_form = forms.MusicianForm()
     if request.method == 'POST':
-        new_form = forms.user_form(request.POST)
-        diction.update({'test_form':new_form})
+        new_form = forms.MusicianForm(request.POST)
         if new_form.is_valid():
-            diction.update({'field': 'Fields Match!!'})
-            diction.update({'form_submited':"Yes"})
-
+            new_form.save(commit=True)
+            return index(request)
+    diction = {'test_form': new_form, 'heading_1':'Add New Musician'}
     return render(request, 'home/form.html', context=diction)
